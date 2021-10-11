@@ -1,6 +1,7 @@
 package cn.tim.rander_camera.widget;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.opengl.GLSurfaceView;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;

@@ -1,5 +1,6 @@
 package cn.tim.rander_camera.widget;
 
+import android.content.Context;
 import android.graphics.SurfaceTexture;
 import android.opengl.GLSurfaceView;
 
@@ -10,6 +11,7 @@ import androidx.lifecycle.LifecycleOwner;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import cn.tim.rander_camera.filter.CameraFilter;
 import cn.tim.rander_camera.filter.ScreenFilter;
 import cn.tim.rander_camera.utils.CameraHelper;
 
@@ -28,12 +30,12 @@ public class CameraRender implements GLSurfaceView.Renderer,
     private ScreenFilter screenFilter;
 
     float[] mtx = new float[16];
+    private CameraFilter cameraFilter;
 
     public CameraRender(CameraView cameraView) {
         this.cameraView = cameraView;
         LifecycleOwner lifecycleOwner = (LifecycleOwner) cameraView.getContext();
         cameraHelper = new CameraHelper(lifecycleOwner, this);
-
     }
 
     @Override
@@ -43,12 +45,14 @@ public class CameraRender implements GLSurfaceView.Renderer,
         mCameraTexture.attachToGLContext(textures[0]);
         // 当摄像头数据有更新回调 onFrameAvailable
         mCameraTexture.setOnFrameAvailableListener(this);
-
-        screenFilter = new ScreenFilter(cameraView.getContext());
+        Context context = cameraView.getContext();
+        cameraFilter = new CameraFilter(context);
+        screenFilter = new ScreenFilter(context);
     }
 
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
+        cameraFilter.setSize(width,height);
         screenFilter.setSize(width,height);
     }
 
@@ -58,13 +62,14 @@ public class CameraRender implements GLSurfaceView.Renderer,
         mCameraTexture.updateTexImage();
         // 获取CameraX中给定的校准参考矩阵
         mCameraTexture.getTransformMatrix(mtx);
-
-        screenFilter.setTransformMatrix(mtx);
-        screenFilter.onDraw(textures[0]);
+        cameraFilter.setTransformMatrix(mtx);
+        int id = cameraFilter.onDraw(textures[0]);
+        screenFilter.onDraw(id);
     }
 
     public void onSurfaceDestroyed() {
-
+        cameraFilter.release();
+        screenFilter.release();
     }
 
     /**

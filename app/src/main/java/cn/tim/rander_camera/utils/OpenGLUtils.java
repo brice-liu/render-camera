@@ -28,6 +28,7 @@ public class OpenGLUtils {
             1.0f, 1.0f
     };
 
+    // 生成支持缩放的纹理
     public static void glGenTextures(int[] textures) {
         GLES20.glGenTextures(textures.length, textures, 0);
         for (int i = 0; i < textures.length; i++) {
