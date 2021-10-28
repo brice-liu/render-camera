@@ -1,9 +1,9 @@
-package cn.tim.rander_camera.filter;
+package cn.tim.render_camera.filter;
 
 import android.content.Context;
 import android.opengl.GLES20;
 
-import cn.tim.rander_camera.utils.OpenGLUtils;
+import cn.tim.render_camera.utils.OpenGLUtils;
 
 /**
  * FBO Filter

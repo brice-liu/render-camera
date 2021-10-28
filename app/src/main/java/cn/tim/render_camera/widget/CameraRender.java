@@ -1,19 +1,23 @@
-package cn.tim.rander_camera.widget;
+package cn.tim.render_camera.widget;
 
 import android.content.Context;
 import android.graphics.SurfaceTexture;
+import android.opengl.EGL14;
 import android.opengl.GLSurfaceView;
 
 import androidx.camera.core.Preview;
 import androidx.lifecycle.LifecycleOwner;
 
 
+import java.io.IOException;
+
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
-import cn.tim.rander_camera.filter.CameraFilter;
-import cn.tim.rander_camera.filter.ScreenFilter;
-import cn.tim.rander_camera.utils.CameraHelper;
+import cn.tim.render_camera.filter.CameraFilter;
+import cn.tim.render_camera.filter.ScreenFilter;
+import cn.tim.render_camera.record.MediaRecorder;
+import cn.tim.render_camera.utils.CameraHelper;
 
 
 public class CameraRender implements GLSurfaceView.Renderer,
@@ -31,6 +35,7 @@ public class CameraRender implements GLSurfaceView.Renderer,
 
     float[] mtx = new float[16];
     private CameraFilter cameraFilter;
+    private MediaRecorder mediaRecorder;
 
     public CameraRender(CameraView cameraView) {
         this.cameraView = cameraView;
@@ -48,6 +53,10 @@ public class CameraRender implements GLSurfaceView.Renderer,
         Context context = cameraView.getContext();
         cameraFilter = new CameraFilter(context);
         screenFilter = new ScreenFilter(context);
+
+        // 录制视频的宽高
+        mediaRecorder = new MediaRecorder(cameraView.getContext(), "/sdcard/demo.mp4",
+                EGL14.eglGetCurrentContext(), 480, 640);
     }
 
     @Override
@@ -65,6 +74,8 @@ public class CameraRender implements GLSurfaceView.Renderer,
         cameraFilter.setTransformMatrix(mtx);
         int id = cameraFilter.onDraw(textures[0]);
         screenFilter.onDraw(id);
+
+        mediaRecorder.fireFrame(id, mCameraTexture.getTimestamp());
     }
 
     public void onSurfaceDestroyed() {
@@ -85,5 +96,17 @@ public class CameraRender implements GLSurfaceView.Renderer,
     public void onFrameAvailable(SurfaceTexture surfaceTexture) {
         // 请求执行一次 onDrawFrame
         cameraView.requestRender();
+    }
+
+    public void startRecord(float speed) {
+        try {
+            mediaRecorder.start(speed);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void stopRecord() {
+        mediaRecorder.stop();
     }
 }

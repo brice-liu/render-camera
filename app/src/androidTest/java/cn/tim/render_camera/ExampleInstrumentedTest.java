@@ -1,4 +1,4 @@
-package cn.tim.rander_camera;
+package cn.tim.render_camera;
 
 import android.content.Context;
 

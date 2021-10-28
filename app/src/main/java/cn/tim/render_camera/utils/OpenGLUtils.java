@@ -1,4 +1,4 @@
-package cn.tim.rander_camera.utils;
+package cn.tim.render_camera.utils;
 
 import android.content.Context;
 import android.opengl.GLES20;

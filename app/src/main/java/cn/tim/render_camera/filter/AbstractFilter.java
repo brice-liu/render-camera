@@ -1,4 +1,4 @@
-package cn.tim.rander_camera.filter;
+package cn.tim.render_camera.filter;
 
 import android.content.Context;
 import android.opengl.GLES20;
@@ -7,7 +7,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
-import cn.tim.rander_camera.utils.OpenGLUtils;
+import cn.tim.render_camera.utils.OpenGLUtils;
 
 public class AbstractFilter {
     FloatBuffer vertexBuffer; //顶点坐标缓存区

@@ -1,4 +1,4 @@
-package cn.tim.rander_camera.utils;
+package cn.tim.render_camera.utils;
 
 import android.os.HandlerThread;
 import android.util.Size;

@@ -1,9 +1,9 @@
-package cn.tim.rander_camera.filter;
+package cn.tim.render_camera.filter;
 
 import android.content.Context;
 import android.opengl.GLES20;
 
-import cn.tim.rander_camera.R;
+import cn.tim.render_camera.R;
 
 /**
  * 采样器为ExternalOES，以前是绘制到屏幕，现在是绘制到FBO

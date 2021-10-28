@@ -1,12 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tim="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
 
-    <cn.tim.rander_camera.widget.CameraView
+    <cn.tim.render_camera.widget.CameraView
+        android:id="@+id/camera_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <cn.tim.render_camera.ui.RoundProgressBar
+        android:id="@+id/btn_start_record"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:progress="0"
+        android:clickable="true"
+        android:textSize="12sp"
+        tim:line_width="6dp"
+        tim:color="@color/white"
+        tim:radius="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:focusable="true" />
+    <RadioGroup
+        android:layout_alignParentBottom="true"
+        android:id="@+id/rg_speed"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="180dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/btn_extra_slow"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="极慢"
+            android:textColor="@color/white" />
+
+        <RadioButton
+            android:id="@+id/btn_slow"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="慢"
+            android:textColor="@color/white" />
+
+        <RadioButton
+            android:id="@+id/btn_normal"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:checked="true"
+            android:gravity="center"
+            android:text="标准"
+            android:textColor="@color/white" />
+
+        <RadioButton
+            android:id="@+id/btn_fast"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="快"
+            android:textColor="@color/white" />
+
+        <RadioButton
+            android:id="@+id/btn_extra_fast"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="极快"
+            android:textColor="@color/white" />
+    </RadioGroup>
+
+
 </RelativeLayout>
