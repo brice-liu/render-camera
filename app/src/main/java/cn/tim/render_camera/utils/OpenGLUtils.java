@@ -11,9 +11,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class OpenGLUtils {
-
-    private static final String TAG = "OpenGLUtils";
-
     public static final float[] VERTEX = {
             -1.0f, -1.0f,
             1.0f, -1.0f,
@@ -27,17 +24,14 @@ public class OpenGLUtils {
             0.0f, 1.0f,
             1.0f, 1.0f
     };
-
     // 生成支持缩放的纹理
     public static void glGenTextures(int[] textures) {
         GLES20.glGenTextures(textures.length, textures, 0);
-        for (int i = 0; i < textures.length; i++) {
+        for (int texture : textures) {
             //与摄像头不同,摄像头是外部纹理 external oes
-            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textures[i]);
+            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, texture);
 
-            /**
-             *  必须：设置纹理过滤参数设置
-             */
+            // 必须：设置纹理过滤参数设置
             /*设置纹理缩放过滤*/
             // GL_NEAREST: 使用纹理中坐标最接近的一个像素的颜色作为需要绘制的像素颜色
             // GL_LINEAR:  使用纹理中坐标最接近的若干个颜色，通过加权平均算法得到需要绘制的像素颜色
@@ -47,9 +41,7 @@ public class OpenGLUtils {
             GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER,
                     GLES20.GL_LINEAR);//缩小过滤
 
-            /**
-             * 可选：设置纹理环绕方向
-             */
+            // 可选：设置纹理环绕方向
             //纹理坐标的范围是0-1。超出这一范围的坐标将被OpenGL根据GL_TEXTURE_WRAP参数的值进行处理
             //GL_TEXTURE_WRAP_S, GL_TEXTURE_WRAP_T 分别为x，y方向。
             //GL_REPEAT:平铺
@@ -59,7 +51,7 @@ public class OpenGLUtils {
 //                    GLES20.GL_CLAMP_TO_EDGE);
 //            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T,
 //                    GLES20.GL_CLAMP_TO_EDGE);
-            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D,0);
+            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
         }
     }
 

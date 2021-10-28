@@ -20,7 +20,7 @@ public class MediaRecorder {
 
     private MediaCodec mMediaCodec;
     private Surface mSurface;
-    private EGLContext mGlContext;
+    private final EGLContext mGlContext;
     private MediaMuxer mMuxer;
     private Handler mHandler;
     private boolean isStart;

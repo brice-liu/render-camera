@@ -9,13 +9,12 @@ import androidx.camera.core.PreviewConfig;
 import androidx.lifecycle.LifecycleOwner;
 
 public class CameraHelper {
-    private HandlerThread handlerThread;
-    private CameraX.LensFacing currentFacing = CameraX.LensFacing.BACK;
-    private Preview.OnPreviewOutputUpdateListener listener;
+    private final CameraX.LensFacing currentFacing = CameraX.LensFacing.BACK;
+    private final Preview.OnPreviewOutputUpdateListener listener;
 
     public CameraHelper(LifecycleOwner lifecycleOwner, Preview.OnPreviewOutputUpdateListener listener) {
         this.listener = listener;
-        handlerThread = new HandlerThread("Analyze-thread");
+        HandlerThread handlerThread = new HandlerThread("Analyze-thread");
         handlerThread.start();
         CameraX.bindToLifecycle(lifecycleOwner, getPreView());
     }
